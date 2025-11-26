@@ -4,11 +4,13 @@ public class NoBinario{
     private NoBinario esquerda;
     private NoBinario direita;
     private String valor;
+    private int indiceBit; // Necessário para a Árvore Patricia (Item C)
 
     public NoBinario(){
         this.esquerda = null;
         this.direita = null;
         this.valor = null;
+        this.indiceBit = -1;
     }
 
     public NoBinario getEsquerda() {
@@ -34,4 +36,7 @@ public class NoBinario{
     public void setDireita(NoBinario direita) {
         this.direita = direita;
     }
+
+    public int getIndiceBit() { return indiceBit; }
+    public void setIndiceBit(int indiceBit) { this.indiceBit = indiceBit; }
 }

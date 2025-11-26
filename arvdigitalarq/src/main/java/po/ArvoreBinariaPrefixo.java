@@ -48,4 +48,39 @@ public class ArvoreBinariaPrefixo {
             imprimirRec(no.getDireita(), prefixo + "(1)--");
         }
     }
+
+    // C - Transformar em Patricia
+    public void compactar() {
+        raiz = compactarRecursivo(raiz, 0);
+    }
+
+    private NoBinario compactarRecursivo(NoBinario no, int nivelAtual) {
+        NoBinario retorno = no;
+
+        if (no != null) {
+
+            no.setIndiceBit(nivelAtual);
+
+            no.setEsquerda(compactarRecursivo(no.getEsquerda(), nivelAtual + 1));
+            no.setDireita(compactarRecursivo(no.getDireita(), nivelAtual + 1));
+
+            boolean temValor = (no.getValor() != null);
+            boolean temEsq = (no.getEsquerda() != null);
+            boolean temDir = (no.getDireita() != null);
+
+            // Verifica se tem apenas UM filho
+            boolean apenasUmFilho = (temEsq ^ temDir);
+
+            // Se não é destino final E tem apenas um caminho->
+            if (!temValor && apenasUmFilho) {
+                // ...o nó atual "some" e retornamos o filho dele para o pai conectar direto
+                if (temEsq) {
+                    retorno = no.getEsquerda();
+                } else {
+                    retorno = no.getDireita();
+                }
+            }
+        }
+        return retorno;
+    }
 }
